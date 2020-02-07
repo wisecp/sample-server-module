@@ -562,6 +562,7 @@
             $u_data     = UserManager::LoginData("member");
             $user_id    = $u_data["id"];
             User::addAction($user_id,'transaction','The server password for service #'.$this->order["id"].' has been changed.');
+            Orders::add_history($user_id,$this->order["id"],'server-order-password-changed');
 
             // Save Module Log
             self::save_log('Servers',$this->_name,__FUNCTION__,['order' => $this->order],['api_result' => $result]);
@@ -581,6 +582,7 @@
                 $u_data     = UserManager::LoginData('member');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "start" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-start');
                 return true;
             }
             return false;
@@ -591,6 +593,7 @@
                 $u_data     = UserManager::LoginData('member');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "stop" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-stop');
                 return true;
             }
             return false;
@@ -601,6 +604,7 @@
                 $u_data     = UserManager::LoginData('member');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "restart" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-restart');
                 return true;
             }
             return false;
@@ -611,6 +615,7 @@
                 $u_data     = UserManager::LoginData('member');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "reboot" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-reboot');
                 return true;
             }
             return false;
@@ -742,6 +747,7 @@
                 $u_data     = UserManager::LoginData('admin');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "start" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-start');
                 return true;
             }
             return false;
@@ -753,6 +759,7 @@
                 $u_data     = UserManager::LoginData('admin');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "stop" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-stop');
                 return true;
             }
             return false;
@@ -764,6 +771,7 @@
                 $u_data     = UserManager::LoginData('admin');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "restart" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-restart');
                 return true;
             }
             return false;
@@ -775,6 +783,7 @@
                 $u_data     = UserManager::LoginData('admin');
                 $user_id    = $u_data['id'];
                 User::addAction($user_id,'transaction','The command "reboot" has been sent for service #'.$this->order["id"].' on the module.');
+                Orders::add_history($user_id,$this->order["id"],'server-order-reboot');
                 return true;
             }
             return false;
