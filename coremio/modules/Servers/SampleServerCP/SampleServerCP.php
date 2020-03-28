@@ -530,6 +530,24 @@
             echo "Redirecting...";
         }
 
+        public function use_adminArea_root_SingleSignOn()
+        {
+            $api_result     = 'OK|bmd5d0p384ax7t26zr9wlwo4f62cf8g6z0ld';
+
+            if(substr($api_result,0,2) != 'OK'){
+                echo "An error has occurred, unable to access.";
+                return false;
+            }
+
+            $token          = substr($api_result,2);
+            $url            = 'https://modulewebsite.com/api/access/'.$token;
+
+            Utility::redirect($url);
+
+            echo "Redirecting...";
+        }
+
+
         public function use_clientArea_change_password()
         {
             if(!Filter::isPOST()) return false;
