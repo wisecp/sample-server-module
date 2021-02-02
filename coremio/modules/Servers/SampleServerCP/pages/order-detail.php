@@ -4,7 +4,7 @@
     $options        = $order["options"];
     $creation_info  = isset($options["creation_info"]) ? $options["creation_info"] : [];
     $config         = isset($options["config"]) ? $options["config"] : [];
-    if($config && isset($config["entity_id"])) $established = true;
+    if($config && isset($config[$module->entity_id_name])) $established = true;
     $buttons        =  $module->adminArea_buttons_output();
 
 ?>
