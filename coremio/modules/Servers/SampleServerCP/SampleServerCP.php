@@ -696,19 +696,34 @@
         }
 
 
-        public function save_adminArea_service_fields($data=[]){
+        public function save_adminArea_service_fields($data=[])
+        {
+            $login          = $this->options["login"];
             $c_info         = $data['creation_info'];
             $config         = $data['config'];
 
-            if($c_info['field1'] == '')
+            if(isset($c_info["new_password"]) && $c_info["new_password"] != '')
             {
-                $this->error = 'Do not leave Field 1 empty.';
-                return false;
+                $new_password = $c_info["new_password"];
+
+                unset($c_info["new_password"]);
+
+                if(strlen($new_password) < 5)
+                {
+                    $this->error = 'Password is too short!';
+                    return false;
+                }
+                /*
+                *  Place the codes to be transmitted to the api here.
+                */
+
+                $login["password"] = $this->encode_str($new_password);
             }
 
             return [
                 'creation_info'     => $c_info,
                 'config'            => $config,
+                'login'             => $login,
             ];
         }
 
