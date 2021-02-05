@@ -28,6 +28,13 @@
         </div>
     </div>
 
+    <div class="formcon">
+        <div class="yuzde30"><?php echo $LANG["change-password"]; ?></div>
+        <div class="yuzde70">
+            <input class="yuzde20" type="text" name="creation_info[new_password]" value="">
+        </div>
+    </div>
+
 
     <?php
         if(method_exists($module,"adminArea_service_fields") && $config_options = $module->adminArea_service_fields())
