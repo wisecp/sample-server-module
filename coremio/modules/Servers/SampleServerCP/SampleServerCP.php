@@ -855,7 +855,7 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link, 'duration' => 1000],
+                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
                 ]);
                 return true;
             }
@@ -903,7 +903,7 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link, 'duration' => 1000],
+                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
                 ]);
                 return true;
             }
@@ -950,7 +950,7 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link, 'duration' => 1000],
+                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
                 ]);
                 return true;
             }
@@ -998,7 +998,7 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link, 'duration' => 1000],
+                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
                 ]);
                 return true;
             }
