@@ -7,6 +7,6 @@
         'stop'                  => 'Stop',
         'reboot'                => 'Reboot',
         'apply'                 => 'Apply',
-        'successful'            => 'Transaction Successfully Done',
-        'error'                 => 'Transaction Failed',
+        'successful'            => 'Process Successfully Done',
+        'error'                 => 'Process Failed',
     ];
