@@ -421,12 +421,20 @@
 
         public function clientArea()
         {
-            $content    = $this->clientArea_buttons_output();
+            $content    = '';
             $_page      = $this->page;
+            $_data      = [];
 
             if(!$_page) $_page = 'home';
-
-            $content .= $this->get_page('clientArea-'.$_page,['test1' => 'hello world', 'test2' => 'sample var']);
+            
+            if($_page == "home")
+            {
+                $_data = ['test1' => 'hello world', 'test2' => 'sample var'];
+            }
+            
+            $content .= $this->clientArea_buttons_output();
+            
+            $content .= $this->get_page('clientArea-'.$_page,$_data);
             return  $content;
         }
 
@@ -855,7 +863,10 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
+                    'timeRedirect' => [
+                        'url' => $this->area_link,
+                        'duration' => 1000
+                    ],
                 ]);
                 return true;
             }
@@ -903,7 +914,10 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
+                    'timeRedirect' => [
+                        'url' => $this->area_link,
+                        'duration' => 1000
+                    ],
                 ]);
                 return true;
             }
@@ -950,7 +964,10 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
+                    'timeRedirect' => [
+                        'url' => $this->area_link,
+                        'duration' => 1000
+                    ],
                 ]);
                 return true;
             }
@@ -998,7 +1015,10 @@
                 echo Utility::jencode([
                     'status' => "successful",
                     'message' => $this->lang["successful"],
-                    'timeRedirect' => ['url' => $this->area_link.(defined("ADMINISTRATOR") ? '?content=automation' : ''), 'duration' => 1000],
+                    'timeRedirect' => [
+                        'url' => $this->area_link,
+                        'duration' => 1000
+                    ],
                 ]);
                 return true;
             }
