@@ -416,12 +416,12 @@
                     $primary_ip     = $account["primary_ip"];
 
                     $list[$account["id"]] = [
-                        'cdate'             => $data["created"], # Format: Y-m-d H:i:s
-                        'status'            => $server['is_suspended'] ? "suspended" : "active",
+                        'cdate'             => $account["created"], # Format: Y-m-d H:i:s
+                        'status'            => $account['is_suspended'] ? "suspended" : "active",
                         'hostname'          => $hostname,
                         'ip'                => $primary_ip,
-                        'assigned_ips'      => implode("\n",$data["ip_addresses"]),
-                        'login'             => ['username' => $data["user"]["email"]],
+                        'assigned_ips'      => implode("\n",$account["ip_addresses"]),
+                        'login'             => ['username' => $account["user"]["email"]],
                         'sync_terms'        => [
                             [
                                 'column'    => "JSON_UNQUOTE(JSON_EXTRACT(options,'$.config.".$this->entity_id_name."'))",
