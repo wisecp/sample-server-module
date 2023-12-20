@@ -371,15 +371,24 @@
 
             try
             {
+                #$data = $this->api->accounts();
                 $data = [
-                    [
-                        'hostname'      => "server2e4.example.com",
-                        'ip'            => '192.168.1.1',
-                        'assigned_ips'  => ['192.168.1.2','192.168.1.3','192.168.1.4'],
-                        'username'      => "root",
-
-                    ],
-                ]; #$this->api->accounts();
+                    'status' => "OK",
+                    'result' => [
+                         [
+                            'id'            => 123,
+                            'hostname'      => "server2e4.example.com",
+                            'primary_ip'    => '192.168.1.1',
+                            'is_suspended'  => false,
+                            'ip_addresses'  => ['192.168.1.1','192.168.1.2','192.168.1.3','192.168.1.4'],
+                            'hostname'      => "server-123",
+                            'user'          => [
+                                'id'     => 100,
+                                'email'  => 'your@example.com',
+                            ],
+                        ]
+                    ]
+                ];
             }
             catch(Exception $e)
             {
@@ -401,18 +410,33 @@
             }
 
             if(isset($data['result']) && $data['result']){
+                $entity_id_name     = $this->entity_id_name; // "vm_id" (Virtual machine ID)
                 foreach($data['result'] AS $account){
                     $hostname       = $account['hostname'];
-                    $primary_ip     = $account["ip"];
+                    $primary_ip     = $account["primary_ip"];
 
-                    $list[$hostname."|".$primary_ip] = [
-                        'cdate'             => $data["created"], # Format: Y-m-d
+                    $list[$account["id"]] = [
+                        'cdate'             => $data["created"], # Format: Y-m-d H:i:s
+                        'status'            => $server['is_suspended'] ? "suspended" : "active",
                         'hostname'          => $hostname,
                         'ip'                => $primary_ip,
-                        'assigned_ips'      => explode(",",$data["ip_addresses"]),
-                        'login'             => ['username' => $data["username"]],
-                        'sync_terms'        => self::sync_terms($primary_ip,$hostname),
-                        'access_data'       => [$this->entity_id_name => $data["vps_id"]],
+                        'assigned_ips'      => implode("\n",$data["ip_addresses"]),
+                        'login'             => ['username' => $data["user"]["email"]],
+                        'sync_terms'        => [
+                            [
+                                'column'    => "JSON_UNQUOTE(JSON_EXTRACT(options,'$.config.".$this->entity_id_name."'))",
+                                'mark'      => "LIKE",
+                                'value'     => $account["id"], // Exasample VPS ID
+                                'logical'   => "", // Required for a second field OR  ||  AND
+                            ]
+                        ],
+                        'access_data'       => [ // options.config array values
+                            $entity_id_name => $account["id"] // VPS identity id
+                        ],
+                         'add_options'       => [ // adding extra data to options column
+                            'custom1' => "test1",
+                            'custom2' => "test2",
+                        ],
                     ];
                 }
             }
