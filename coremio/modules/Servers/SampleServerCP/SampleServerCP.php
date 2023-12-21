@@ -282,6 +282,270 @@
             }
         }
 
+        /**
+         * (Not Required) When a product addon is purchased, you can use this function if you need to perform an action on the module according to the purchased addon.
+         * @param array $addon Transmits the data of the linked row in the users_products_addons table in the database.
+         * @param array $args Will be deprecated after 3.2.
+         * @return bool|array If you return an array as a return value, it stores this array as JSON in the "module_data" column of the corresponding row in the "users_products_addons" table in the database. If you don't need to store data, you can return bool data depending on the transaction state.
+         */
+        /*
+        public function addon_create($addon=[], $args=[]):bool|array
+        {
+            $entity_id  = $this->config[$this->entity_id_name] ?? 0;
+
+            if(!$entity_id)
+            {
+                $this->error = "The connected service is not yet established.";
+                return false;
+            }
+
+            $values = $this->id_of_conf_opt[$addon['id']] ?? [];
+
+            // Sample: Buy Backup
+            if(($values["Backup"] ?? []))
+            {
+                #$value = $values["Backup"]; // Ex: "Daily" or "Weekly"
+                #$response = $this->api->EnableBackup($entity_id,$value);
+                $response    = ['status' => "successful"];
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return true;
+            }
+
+            // Sample: Buy Extra IP Address
+            elseif(($values["ExtraIP"] ?? []))
+            {
+
+                #$value = $values["ExtraIP"]; //  Ex: "5","10","15"
+                #$response = $this->api->AddExtraIPAddress($value,$entity_id);
+                $response    = [
+                    'id' => 123,
+                    'status' => "successful",
+                    'data' => [
+                        '192.168.1.1',
+                        '192.168.1.2',
+                        '192.168.1.3',
+                    ],
+                ];
+
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+
+                // Updating the IP addresses assigned to the order
+                $assigned_ips = explode("\n",$this->options["assigned_ips"] ?? '');
+                foreach($response["data"] AS $ip) $assigned_ips[] = $ip;
+                $this->options["assigned_ips"] = implode("\n",$assigned_ips);
+                Orders::set($this->order["id"],['options' => Utility::jencode($this->options)]);
+
+                // Return addon module_data
+                return [
+                    'id' => $response["id"]
+                ];
+            }
+
+            return true;
+        }
+        */
+        /**
+         * (Not Required) Use this function if you also want to take action on the module when the status of the ordered product addon is suspended.
+         * @param array $addon Transmits the data of the linked row in the users_products_addons table in the database.
+         * @param array $args Will be deprecated after 3.2.
+         * @return bool|array If you return an array as a return value, it stores this array as JSON in the "module_data" column of the corresponding row in the "users_products_addons" table in the database. If you don't need to store data, you can return bool data depending on the transaction state.
+         */
+        /*
+        public function addon_suspend($addon=[],$args=[])
+        {
+            $entity_id  = $this->config[$this->entity_id_name] ?? 0;
+            if(!$entity_id) return true;
+
+            $values         = $this->id_of_conf_opt[$addon['id']] ?? [];
+            $module_data    = [];
+
+            // Sample: Suspend Backup
+            if(($values["Backup"] ?? []))
+            {
+                #$response = $this->api->DisableBackup($entity_id);
+                $response    = ['status' => "successful"];
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return true;
+            }
+
+            // Sample: Suspend Extra IP Address
+            elseif(($values["ExtraIP"] ?? []))
+            {
+                #$id = $module_data["id"] ?? 0;
+                #$response = $this->api->DisableExtraIPAddress($id);
+                $response    = [
+                    'status' => "successful",
+                ];
+
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return true;
+            }
+
+            return true;
+        }
+        */
+        /**
+         * (Not Required) Use this function if you also want to take action on the module when the status of the ordered product addon is unsuspended.
+         * @param array $addon Transmits the data of the linked row in the users_products_addons table in the database.
+         * @param array $args Will be deprecated after 3.2.
+         * @return bool|array If you return an array as a return value, it stores this array as JSON in the "module_data" column of the corresponding row in the "users_products_addons" table in the database. If you don't need to store data, you can return bool data depending on the transaction state.
+         */
+        /*
+        public function addon_unsuspend($addon=[],$args=[])
+        {
+            $entity_id  = $this->config[$this->entity_id_name] ?? 0;
+            if(!$entity_id) return true;
+
+            $values         = $this->id_of_conf_opt[$addon['id']] ?? [];
+            $module_data    = [];
+
+            // Sample: Unsuspend Backup
+            if(($values["Backup"] ?? []))
+            {
+                #$response = $this->api->EnableBackup($entity_id);
+                $response    = ['status' => "successful"];
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return true;
+            }
+
+            // Sample: Unsuspend Extra IP Address
+            elseif(($values["ExtraIP"] ?? []))
+            {
+                #$id = $module_data["id"] ?? 0;
+                #$response = $this->api->EnableExtraIPAddress($id);
+                $response    = [
+                    'status' => "successful",
+                ];
+
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return true;
+            }
+
+            return true;
+        }
+        */
+        /**
+         * (Not Required) Use this function if you also want to take action on the module when the status of the ordered product addon is cancelled.
+         * @param array $addon Transmits the data of the linked row in the users_products_addons table in the database.
+         * @param array $args Will be deprecated after 3.2.
+         * @return bool|array If you return an array as a return value, it stores this array as JSON in the "module_data" column of the corresponding row in the "users_products_addons" table in the database. If you don't need to store data, you can return bool data depending on the transaction state.
+         */
+        /*
+        public function addon_cancelled($addon=[],$params=[])
+        {
+            $entity_id  = $this->config[$this->entity_id_name] ?? 0;
+            if(!$entity_id) return true;
+
+            $values         = $this->id_of_conf_opt[$addon['id']] ?? [];
+            $module_data    = [];
+
+            // Sample: Cancel Backup
+            if(($values["Backup"] ?? []))
+            {
+                #$response = $this->api->CancelBackup($entity_id);
+                $response    = ['status' => "successful"];
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return true;
+            }
+
+            // Sample: Cancel Extra IP Address
+            elseif(($values["ExtraIP"] ?? []))
+            {
+                #$id = $module_data["id"] ?? 0;
+                #$response = $this->api->CancelExtraIPAddress($id);
+                $response    = [
+                    'status' => "successful",
+                ];
+
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+                return [];
+            }
+
+            return true;
+        }
+        */
+        /**
+         * (Not Required) Use this function if you also want to take action on the module when the details of the ordered product addon is changed.
+         * @param array $addon Transmits the data of the linked row in the users_products_addons table in the database.
+         * @param array $args Database "users_products_addons" table after modification of the related row
+         * @return bool|array If you return an array as a return value, it stores this array as JSON in the "module_data" column of the corresponding row in the "users_products_addons" table in the database. If you don't need to store data, you can return bool data depending on the transaction state.
+         */
+        /*
+        public function addon_change($addon=[],$args=[])
+        {
+            $entity_id  = $this->config[$this->entity_id_name] ?? 0;
+            if(!$entity_id) return true;
+
+            $values         = $this->id_of_conf_opt[$addon['id']] ?? [];
+            $module_data    = [];
+
+
+            // Sample: Change Extra IP Address
+            if(($values["ExtraIP"] ?? []))
+            {
+                $q      = (int) $args["option_quantity"] ?? 0;
+                #$id = $module_data["id"] ?? 0;
+                #$response = $this->api->ChangeIPAddressCount($id,$q);
+                $response    = [
+                    'status' => "successful",
+                    'data' => [
+                        '192.168.1.1',
+                        '192.168.1.2',
+                        '192.168.1.3',
+                    ],
+                ];
+
+                if(!$response)
+                {
+                    $this->error = $this->api->error;
+                    return false;
+                }
+
+                // Updating the IP addresses assigned to the order
+                $assigned_ips = explode("\n",$this->options["assigned_ips"] ?? '');
+                foreach($response["data"] AS $ip) if(!in_array($ip,$assigned_ips)) $assigned_ips[] = $ip;
+                $this->options["assigned_ips"] = implode("\n",$assigned_ips);
+                Orders::set($this->order["id"],['options' => Utility::jencode($this->options)]);
+
+                return true;
+            }
+
+            return true;
+        }
+        */
+
         public function apply_updowngrade($params=[])
         {
             /*
