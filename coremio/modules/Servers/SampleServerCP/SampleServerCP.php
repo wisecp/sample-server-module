@@ -554,12 +554,16 @@
 
             try
             {
+                
+                $disk_limit     = $params["creation_info"]["example1"] ?? -1;
+                $memory_limit   = $params["creation_info"]["example2"] ?? -1;
+                
                 /*
                  * $this->order["options"]
                 * for parameters: https://docs.wisecp.com/en/kb/parameters
                 * Here are the codes to be sent to the API...
                 */
-                $result             = "OK"; #$this->api->upgrade();
+                $result             = "OK"; #$this->api->upgrade($disk_limit,$memory_limit);
             }
             catch (Exception $e){
                 $this->error = $e->getMessage();
