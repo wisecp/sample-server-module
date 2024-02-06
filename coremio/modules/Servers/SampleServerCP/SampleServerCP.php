@@ -548,10 +548,12 @@
 
         public function apply_updowngrade($params=[])
         {
-            /*
-            parent::udgrade(); // You can use it to delete the previous virtual server and create the virtual server with new features.
-            */
-
+            // You can use it to delete the previous virtual server and create the virtual server with new features.
+            // return parent::udgrade(); 
+            
+            
+            // Or upgrade the service according to the features of the new product package as in the code example below.
+            
             try
             {
                 
